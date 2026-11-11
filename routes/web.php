@@ -1,0 +1,24 @@
+<?php
+
+use App\Http\Controllers\AnuncioController;
+use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', [AnuncioController::class, 'index']);
+Route::get('/anuncio/{anuncio}', [AnuncioController::class, 'show']);
+
+Route::middleware('guest')->group(function () {
+    Route::view('/registo', 'registo');
+    Route::post('/registo', [AuthController::class, 'registo']);
+    Route::view('/entrar', 'entrar')->name('login');
+    Route::post('/entrar', [AuthController::class, 'entrar']);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/painel', [AnuncioController::class, 'painel']);
+    Route::view('/anuncios/novo', 'novo');
+    Route::post('/anuncios', [AnuncioController::class, 'store']);
+    Route::post('/anuncios/{anuncio}/estado', [AnuncioController::class, 'estado']);
+    Route::delete('/anuncios/{anuncio}', [AnuncioController::class, 'destroy']);
+    Route::post('/sair', [AuthController::class, 'sair']);
+});

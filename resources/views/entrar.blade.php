@@ -1,0 +1,12 @@
+@extends('layout')
+@section('titulo', 'Entrar')
+@section('conteudo')
+<h2>Entrar</h2>
+<form method="POST" action="/entrar">
+  @csrf
+  <input name="email" type="email" placeholder="Email" value="{{ old('email') }}">
+  <input name="password" type="password" placeholder="Palavra-passe">
+  @foreach($errors->all() as $e)<p class="erro">{{ $e }}</p>@endforeach
+  <button class="btn">Entrar</button>
+</form>
+@endsection
