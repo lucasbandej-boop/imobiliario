@@ -2,7 +2,7 @@
 @section('titulo', $anuncio->titulo)
 @section('conteudo')
 @foreach($anuncio->fotos ?? [] as $f)
-  <img src="{{ asset('storage/'.$f) }}" alt="" style="width:100%;border-radius:10px;margin-bottom:8px">
+  <img src="{{ \App\Support\Fotos::url($f) }}" alt="" style="width:100%;border-radius:10px;margin-bottom:8px">
 @endforeach
 <h2>{{ $anuncio->titulo }}</h2>
 <div class="preco">{{ number_format($anuncio->preco, 0, ',', '.') }} {{ $anuncio->moeda }}</div>

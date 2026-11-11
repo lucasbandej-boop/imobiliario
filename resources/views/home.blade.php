@@ -24,7 +24,7 @@
 <br>
 @forelse($anuncios as $a)
   <a class="card" href="/anuncio/{{ $a->id }}">
-    @if($a->fotos)<img src="{{ asset('storage/'.$a->fotos[0]) }}" alt="">@endif
+    @if($a->fotos)<img src="{{ \App\Support\Fotos::url($a->fotos[0]) }}" alt="">@endif
     <b>{{ $a->titulo }}</b>
     <div class="preco">{{ number_format($a->preco, 0, ',', '.') }} {{ $a->moeda }}</div>
     <div class="sm">{{ ucfirst($a->tipo) }} para {{ $a->finalidade }} · {{ $a->bairro ? $a->bairro.', ' : '' }}{{ $a->provincia }}</div>

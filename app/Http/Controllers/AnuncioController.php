@@ -52,7 +52,7 @@ class AnuncioController extends Controller
 
         $fotos = [];
         foreach ($r->file('fotos', []) as $f) {
-            $fotos[] = $f->store('anuncios', 'public');
+            $fotos[] = \App\Support\Fotos::guardar($f);
         }
         $d['fotos'] = $fotos;
 
