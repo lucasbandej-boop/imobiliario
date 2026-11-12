@@ -10,6 +10,7 @@
 </section>
 
 <form class="filtros" method="GET" action="/#lista">
+  <input name="q" style="grid-column:1/-1" placeholder="Procurar por bairro, município ou título" value="{{ request('q') }}">
   <select name="finalidade">
     <option value="">Arrendar ou vender</option>
     <option value="arrendar" @selected(request('finalidade')=='arrendar')>Arrendar</option>
@@ -27,10 +28,19 @@
       <option @selected(request('provincia')==$p)>{{ $p }}</option>
     @endforeach
   </select>
-  <button class="btn">Filtrar</button>
+  <select name="ordem">
+    <option value="">Mais recentes</option>
+    <option value="preco_asc" @selected(request('ordem')=='preco_asc')>Preço: mais barato</option>
+    <option value="preco_desc" @selected(request('ordem')=='preco_desc')>Preço: mais caro</option>
+  </select>
+  <input name="max" type="number" placeholder="Preço máximo" value="{{ request('max') }}">
+  <button class="btn">Pesquisar</button>
 </form>
 
-<h2 id="lista">Anúncios recentes</h2>
+<h2 id="lista">Anúncios</h2>
+@if(request()->hasAny(['q','finalidade','tipo','provincia','ordem','max']))
+  <p class="sm">{{ $anuncios->total() }} resultado(s) · <a href="/">Limpar filtros</a></p>
+@endif
 <div class="grid">
 @forelse($anuncios as $a)
   <a class="ad" href="/anuncio/{{ $a->id }}">
@@ -46,11 +56,11 @@
       <div class="preco">{{ number_format($a->preco, 0, ',', '.') }} {{ $a->moeda }}</div>
       <b>{{ $a->titulo }}</b>
       <div class="sm">{{ $a->bairro ? $a->bairro.', ' : '' }}{{ $a->provincia }}</div>
-      <div class="sm">{{ ucfirst($a->tipo) }}{{ $a->quartos !== null ? ' · '.$a->quartos.' quartos' : '' }}</div>
+      <div class="sm">{{ ucfirst($a->tipo) }}{{ $a->quartos !== null ? ' · '.$a->quartos.($a->quartos == 1 ? ' quarto' : ' quartos') : '' }}</div>
     </div>
   </a>
 @empty
-  <p>Ainda não há anúncios. Seja o primeiro a publicar!</p>
+  <p>Nenhum anúncio encontrado. Tente outro bairro ou limpe os filtros.</p>
 @endforelse
 </div>
 {{ $anuncios->links() }}

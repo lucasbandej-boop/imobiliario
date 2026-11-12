@@ -4,7 +4,6 @@ use App\Http\Controllers\AnuncioController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [AnuncioController::class, 'index']);
 Route::get('/anuncio/{anuncio}', [AnuncioController::class, 'show']);
 
 Route::middleware('guest')->group(function () {
@@ -27,3 +26,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/anuncios/{anuncio}/editar', [\App\Http\Controllers\EditarAnuncioController::class, 'form']);
     Route::put('/anuncios/{anuncio}', [\App\Http\Controllers\EditarAnuncioController::class, 'guardar']);
 });
+
+Route::get('/', [\App\Http\Controllers\PesquisaController::class, 'index']);
