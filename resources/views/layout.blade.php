@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0e7c66">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f2a900'/%3E%3Cpath d='M16 7 6 15h3v9h5v-6h4v6h5v-9h3z' fill='white'/%3E%3C/svg%3E">
-<title>@yield('titulo', 'CasaDireta - Casas e terrenos em Angola')</title>
+<title>@yield('titulo', 'CasaAngola - Casas e terrenos em Angola')</title>
 <style>
 :root{--cor:#0e7c66;--cor-escura:#0a5c4c;--destaque:#f2a900;--fundo:#f4f6f5;--texto:#1d2b27;--cinza:#6b7873}
 *{box-sizing:border-box}
@@ -50,7 +50,7 @@ footer{text-align:center;color:var(--cinza);font-size:.85rem;padding:24px 16px}
 <nav>
   <a class="logo" href="/">
     <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#f2a900"/><path d="M16 7 6 15h3v9h5v-6h4v6h5v-9h3z" fill="#fff"/></svg>
-    CasaDireta
+    CasaAngola
   </a>
   <a class="pub" href="/anuncios/novo">Publicar</a>
   @auth
@@ -61,6 +61,6 @@ footer{text-align:center;color:var(--cinza);font-size:.85rem;padding:24px 16px}
   @endauth
 </nav>
 <main>@yield('conteudo')</main>
-<footer>CasaDireta · Proprietários e clientes, sem intermediários · Angola</footer>
+<footer>CasaAngola · Proprietários e clientes, sem intermediários · Angola</footer>
 </body>
 </html>
