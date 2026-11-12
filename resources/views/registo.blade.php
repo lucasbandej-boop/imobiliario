@@ -11,4 +11,5 @@
   @foreach($errors->all() as $e)<p class="erro">{{ $e }}</p>@endforeach
   <button class="btn">Criar conta</button>
 </form>
+<p class="sm" style="text-align:center;margin-top:12px">Já tem conta? <a href="/entrar">Entrar</a></p>
 @endsection
