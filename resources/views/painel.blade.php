@@ -2,6 +2,7 @@
 @section('titulo', 'Painel')
 @section('conteudo')
 <h2>Olá, {{ auth()->user()->name }}</h2>
+@if(auth()->user()->verificado)<p class="sm">✓ Conta verificada</p>@else<p class="sm"><a href="https://wa.me/{{ config("site.admin_whatsapp") }}?text={{ urlencode("Olá! Quero pedir o selo de proprietário verificado no CasaAngola. Nome: ".auth()->user()->name." · Email: ".auth()->user()->email) }}">Pedir selo de verificado</a></p>@endif
 <a class="btn" style="display:block;text-align:center;text-decoration:none;margin-bottom:16px" href="/anuncios/novo">+ Publicar anúncio</a>
 @forelse($anuncios as $a)
   <div class="card">

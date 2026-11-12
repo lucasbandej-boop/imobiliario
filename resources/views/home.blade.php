@@ -51,6 +51,7 @@
         <div class="sem-foto">Sem foto</div>
       @endif
       <span class="tag {{ $a->finalidade }}">{{ $a->finalidade == 'vender' ? 'Venda' : 'Arrendar' }}</span>
+      @if($a->user && $a->user->verificado)<span class="tag" style="left:auto;right:10px;background:#fff;color:var(--cor)">✓ Verificado</span>@endif
     </div>
     <div class="info">
       <div class="preco">{{ number_format($a->preco, 0, ',', '.') }} {{ $a->moeda }}</div>

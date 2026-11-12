@@ -10,6 +10,7 @@
 .gal-mini{display:flex;gap:6px;margin:8px 0 14px;overflow-x:auto}
 .gal-mini img{width:64px;height:48px;object-fit:cover;border-radius:6px;cursor:pointer;opacity:.6;flex:0 0 auto}
 .gal-mini img.on{opacity:1;outline:2px solid var(--cor)}
+.selo{display:inline-block;background:#e3f4ee;color:var(--cor-escura);font-size:.8rem;font-weight:700;padding:4px 10px;border-radius:20px}
 </style>
 
 @php($fotos = $anuncio->fotos ?? [])
@@ -32,12 +33,14 @@
 @endif
 
 <h2>{{ $anuncio->titulo }}</h2>
+@if($anuncio->user && $anuncio->user->verificado)<p><span class="selo">✓ Proprietário verificado</span></p>@endif
 <div class="preco">{{ number_format($anuncio->preco, 0, ',', '.') }} {{ $anuncio->moeda }}</div>
 <p class="sm">{{ ucfirst($anuncio->tipo) }} para {{ $anuncio->finalidade }} · {{ $anuncio->bairro ? $anuncio->bairro.', ' : '' }}{{ $anuncio->municipio ? $anuncio->municipio.', ' : '' }}{{ $anuncio->provincia }}</p>
 <p>{{ $anuncio->quartos !== null ? $anuncio->quartos.($anuncio->quartos == 1 ? ' quarto' : ' quartos') : '' }}{{ ($anuncio->quartos !== null && $anuncio->casas_banho !== null) ? ' · ' : '' }}{{ $anuncio->casas_banho !== null ? $anuncio->casas_banho.($anuncio->casas_banho == 1 ? ' casa de banho' : ' casas de banho') : '' }}</p>
 <p>{!! nl2br(e($anuncio->descricao)) !!}</p>
 @if($anuncio->estado !== 'ativo')<p class="erro"><b>Este anúncio já está {{ $anuncio->estado }}.</b></p>@endif
 <a class="btn" style="display:block;text-align:center;text-decoration:none" href="https://wa.me/{{ $anuncio->whatsapp }}?text={{ urlencode('Olá, vi o anúncio "'.$anuncio->titulo.'" no CasaAngola e tenho interesse.') }}">Contactar via WhatsApp</a>
+<p class="sm" style="text-align:center;margin-top:14px"><a href="https://wa.me/{{ config('site.admin_whatsapp') }}?text={{ urlencode('Denúncia do anúncio #'.$anuncio->id.' ('.url('/anuncio/'.$anuncio->id).'). Motivo: ') }}">Denunciar este anúncio</a></p>
 
 <script>
 (function () {
