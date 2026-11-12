@@ -22,3 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/anuncios/{anuncio}', [AnuncioController::class, 'destroy']);
     Route::post('/sair', [AuthController::class, 'sair']);
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/anuncios/{anuncio}/editar', [\App\Http\Controllers\EditarAnuncioController::class, 'form']);
+    Route::put('/anuncios/{anuncio}', [\App\Http\Controllers\EditarAnuncioController::class, 'guardar']);
+});

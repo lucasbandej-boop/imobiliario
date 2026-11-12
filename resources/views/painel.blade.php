@@ -8,6 +8,7 @@
     <a href="/anuncio/{{ $a->id }}"><b>{{ $a->titulo }}</b></a>
     <div class="sm">{{ ucfirst($a->tipo) }} para {{ $a->finalidade }} · Estado: {{ $a->estado }}</div>
     <div style="margin-top:8px">
+      <a class="mini" href="/anuncios/{{ $a->id }}/editar" style="text-decoration:none;color:inherit;display:inline-block">Editar</a>
       <form class="inline" method="POST" action="/anuncios/{{ $a->id }}/estado">
         @csrf
         <input type="hidden" name="estado" value="{{ $a->finalidade == 'vender' ? 'vendido' : 'arrendado' }}">
