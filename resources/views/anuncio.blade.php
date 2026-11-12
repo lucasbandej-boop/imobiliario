@@ -1,14 +1,60 @@
 @extends('layout')
 @section('titulo', $anuncio->titulo)
 @section('conteudo')
-@foreach($anuncio->fotos ?? [] as $f)
-  <img src="{{ \App\Support\Fotos::url($f) }}" alt="" style="width:100%;border-radius:10px;margin-bottom:8px">
-@endforeach
+<style>
+.gal{position:relative}
+.gal-trilho{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:12px;scrollbar-width:none}
+.gal-trilho::-webkit-scrollbar{display:none}
+.gal-trilho img{flex:0 0 100%;width:100%;height:320px;object-fit:cover;scroll-snap-align:center;background:#dde5e2}
+.gal-n{position:absolute;right:10px;bottom:10px;background:rgba(0,0,0,.6);color:#fff;font-size:.8rem;padding:3px 10px;border-radius:20px}
+.gal-mini{display:flex;gap:6px;margin:8px 0 14px;overflow-x:auto}
+.gal-mini img{width:64px;height:48px;object-fit:cover;border-radius:6px;cursor:pointer;opacity:.6;flex:0 0 auto}
+.gal-mini img.on{opacity:1;outline:2px solid var(--cor)}
+</style>
+
+@php($fotos = $anuncio->fotos ?? [])
+@if(count($fotos))
+<div class="gal">
+  <div class="gal-trilho" id="trilho">
+    @foreach($fotos as $f)
+      <img src="{{ \App\Support\Fotos::url($f) }}" alt="Foto {{ $loop->iteration }}">
+    @endforeach
+  </div>
+  @if(count($fotos) > 1)<span class="gal-n" id="gal-n">1/{{ count($fotos) }}</span>@endif
+</div>
+@if(count($fotos) > 1)
+<div class="gal-mini" id="mini">
+  @foreach($fotos as $f)
+    <img src="{{ \App\Support\Fotos::url($f) }}" class="{{ $loop->first ? 'on' : '' }}" alt="">
+  @endforeach
+</div>
+@endif
+@endif
+
 <h2>{{ $anuncio->titulo }}</h2>
 <div class="preco">{{ number_format($anuncio->preco, 0, ',', '.') }} {{ $anuncio->moeda }}</div>
 <p class="sm">{{ ucfirst($anuncio->tipo) }} para {{ $anuncio->finalidade }} · {{ $anuncio->bairro ? $anuncio->bairro.', ' : '' }}{{ $anuncio->municipio ? $anuncio->municipio.', ' : '' }}{{ $anuncio->provincia }}</p>
-<p>{{ $anuncio->quartos !== null ? $anuncio->quartos.' quartos · ' : '' }}{{ $anuncio->casas_banho !== null ? $anuncio->casas_banho.' casas de banho' : '' }}</p>
+<p>{{ $anuncio->quartos !== null ? $anuncio->quartos.($anuncio->quartos == 1 ? ' quarto' : ' quartos') : '' }}{{ ($anuncio->quartos !== null && $anuncio->casas_banho !== null) ? ' · ' : '' }}{{ $anuncio->casas_banho !== null ? $anuncio->casas_banho.($anuncio->casas_banho == 1 ? ' casa de banho' : ' casas de banho') : '' }}</p>
 <p>{!! nl2br(e($anuncio->descricao)) !!}</p>
 @if($anuncio->estado !== 'ativo')<p class="erro"><b>Este anúncio já está {{ $anuncio->estado }}.</b></p>@endif
-<a class="btn" style="display:block;text-align:center;text-decoration:none" href="https://wa.me/{{ $anuncio->whatsapp }}?text={{ urlencode('Olá, vi o anúncio "'.$anuncio->titulo.'" e tenho interesse.') }}">Contactar via WhatsApp</a>
+<a class="btn" style="display:block;text-align:center;text-decoration:none" href="https://wa.me/{{ $anuncio->whatsapp }}?text={{ urlencode('Olá, vi o anúncio "'.$anuncio->titulo.'" no CasaAngola e tenho interesse.') }}">Contactar via WhatsApp</a>
+
+<script>
+(function () {
+  var t = document.getElementById('trilho');
+  if (!t) return;
+  var n = document.getElementById('gal-n');
+  var minis = document.querySelectorAll('#mini img');
+  t.addEventListener('scroll', function () {
+    var i = Math.round(t.scrollLeft / t.clientWidth);
+    if (n) n.textContent = (i + 1) + '/' + t.children.length;
+    minis.forEach(function (m, k) { m.classList.toggle('on', k === i); });
+  });
+  minis.forEach(function (m, k) {
+    m.addEventListener('click', function () {
+      t.scrollTo({ left: k * t.clientWidth, behavior: 'smooth' });
+    });
+  });
+})();
+</script>
 @endsection

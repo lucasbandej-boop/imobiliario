@@ -25,10 +25,10 @@
   <input name="casas_banho" type="number" placeholder="Casas de banho" value="{{ old('casas_banho') }}">
   <textarea name="descricao" rows="4" placeholder="Descrição">{{ old('descricao') }}</textarea>
   <input name="whatsapp" type="tel" placeholder="WhatsApp (ex: 923000000)" value="{{ old('whatsapp') }}">
-  <label class="sm">Fotos (até 5, máx. 2 MB cada)</label>
+  <label class="sm">Fotos (até 5; pode escolher várias de uma vez)</label>
   <input name="fotos[]" type="file" accept="image/*" multiple>
   @foreach($errors->all() as $e)<p class="erro">{{ $e }}</p>@endforeach
   <button class="btn">Publicar</button>
 </form>
-<script src="/comprimir.js"></script>
+<script src="/comprimir.js?v=2"></script>
 @endsection
