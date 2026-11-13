@@ -28,3 +28,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/', [\App\Http\Controllers\PesquisaController::class, 'index']);
+
+Route::middleware('auth')->group(function () {
+    Route::post('/anuncios/{anuncio}/renovar', \App\Http\Controllers\RenovarController::class);
+});

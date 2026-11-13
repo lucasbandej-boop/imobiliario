@@ -9,7 +9,7 @@ class PesquisaController extends Controller
 {
     public function index(Request $r)
     {
-        $q = Anuncio::with('user:id,verificado')->where('estado', 'ativo');
+        $q = Anuncio::with('user:id,verificado')->where('estado', 'ativo')->where('expira_em', '>', now());
 
         foreach (['finalidade', 'tipo', 'provincia'] as $c) {
             if ($r->filled($c)) {

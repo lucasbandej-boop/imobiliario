@@ -34,12 +34,26 @@
 
 <h2>{{ $anuncio->titulo }}</h2>
 @if($anuncio->user && $anuncio->user->verificado)<p><span class="selo">✓ Proprietário verificado</span></p>@endif
+<p class="sm">Publicado em {{ $anuncio->publicadoTexto() }} · Válido até {{ $anuncio->validoAteTexto() }}</p>
 <div class="preco">{{ number_format($anuncio->preco, 0, ',', '.') }} {{ $anuncio->moeda }}</div>
 <p class="sm">{{ ucfirst($anuncio->tipo) }} para {{ $anuncio->finalidade }} · {{ $anuncio->bairro ? $anuncio->bairro.', ' : '' }}{{ $anuncio->municipio ? $anuncio->municipio.', ' : '' }}{{ $anuncio->provincia }}</p>
 <p>{{ $anuncio->quartos !== null ? $anuncio->quartos.($anuncio->quartos == 1 ? ' quarto' : ' quartos') : '' }}{{ ($anuncio->quartos !== null && $anuncio->casas_banho !== null) ? ' · ' : '' }}{{ $anuncio->casas_banho !== null ? $anuncio->casas_banho.($anuncio->casas_banho == 1 ? ' casa de banho' : ' casas de banho') : '' }}</p>
 <p>{!! nl2br(e($anuncio->descricao)) !!}</p>
-@if($anuncio->estado !== 'ativo')<p class="erro"><b>Este anúncio já está {{ $anuncio->estado }}.</b></p>@endif
+
+@php
+  $disponivel = $anuncio->estado === 'ativo' && !$anuncio->expirado;
+  $aviso = match($anuncio->estado) {
+    'arrendado' => 'Este anúncio já está arrendado.',
+    'vendido' => 'Este anúncio já foi vendido.',
+    'suspenso' => 'Este anúncio está indisponível.',
+    default => 'Este anúncio expirou.',
+  };
+@endphp
+@if($disponivel)
 <a class="btn" style="display:block;text-align:center;text-decoration:none" href="https://wa.me/{{ $anuncio->whatsapp }}?text={{ urlencode('Olá, vi o anúncio "'.$anuncio->titulo.'" no CasaAngola e tenho interesse.') }}">Contactar via WhatsApp</a>
+@else
+<p class="erro"><b>{{ $aviso }}</b></p>
+@endif
 <p class="sm" style="text-align:center;margin-top:14px"><a href="https://wa.me/{{ config('site.admin_whatsapp') }}?text={{ urlencode('Denúncia do anúncio #'.$anuncio->id.' ('.url('/anuncio/'.$anuncio->id).'). Motivo: ') }}">Denunciar este anúncio</a></p>
 
 <script>

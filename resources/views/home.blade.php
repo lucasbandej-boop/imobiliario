@@ -58,6 +58,7 @@
       <b>{{ $a->titulo }}</b>
       <div class="sm">{{ $a->bairro ? $a->bairro.', ' : '' }}{{ $a->provincia }}</div>
       <div class="sm">{{ ucfirst($a->tipo) }}{{ $a->quartos !== null ? ' · '.$a->quartos.($a->quartos == 1 ? ' quarto' : ' quartos') : '' }}</div>
+      <div class="sm">Publicado em {{ $a->publicadoTexto() }}</div>
     </div>
   </a>
 @empty
