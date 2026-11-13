@@ -39,3 +39,15 @@ Route::post('/nova-senha', [\App\Http\Controllers\RecuperarSenhaController::clas
 
 Route::view('/termos', 'termos');
 Route::view('/privacidade', 'privacidade');
+
+Route::middleware(['auth', \App\Http\Middleware\SoAdmin::class])->prefix('admin')->group(function () {
+    $c = \App\Http\Controllers\AdminController::class;
+    Route::get('/', [$c, 'inicio']);
+    Route::get('/anuncios', [$c, 'anuncios']);
+    Route::post('/anuncios/{id}/estado', [$c, 'anuncioEstado']);
+    Route::delete('/anuncios/{id}', [$c, 'anuncioApagar']);
+    Route::get('/utilizadores', [$c, 'utilizadores']);
+    Route::post('/utilizadores/{id}/selo', [$c, 'selo']);
+    Route::post('/utilizadores/{id}/bloquear', [$c, 'bloquear']);
+    Route::post('/utilizadores/{id}/senha', [$c, 'linkSenha']);
+});

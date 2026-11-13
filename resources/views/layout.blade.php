@@ -64,6 +64,7 @@ footer{text-align:center;color:var(--cinza);font-size:.85rem;padding:24px 16px}
   <a class="pub" href="/anuncios/novo">Publicar</a>
   @auth
     <a href="/painel">Painel</a>
+    @if(auth()->user()->admin)<a href="/admin">Admin</a>@endif
     <form class="inline" method="POST" action="/sair">@csrf<button>Sair</button></form>
   @else
     <a href="/entrar">Entrar</a><a href="/registo">Criar conta</a>

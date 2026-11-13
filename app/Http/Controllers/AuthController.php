@@ -24,6 +24,7 @@ class AuthController extends Controller
     {
         $c = $r->validate(['email' => 'required|email', 'password' => 'required']);
         if (Auth::attempt($c)) {
+            if (Auth::user()->bloqueado) { Auth::logout(); $r->session()->invalidate(); $r->session()->regenerateToken(); return back()->withErrors(["email" => "Esta conta foi suspensa. Fale connosco pelo WhatsApp."])->onlyInput("email"); }
             $r->session()->regenerate();
             return redirect('/painel');
         }
