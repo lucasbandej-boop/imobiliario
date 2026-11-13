@@ -32,3 +32,7 @@ Route::get('/', [\App\Http\Controllers\PesquisaController::class, 'index']);
 Route::middleware('auth')->group(function () {
     Route::post('/anuncios/{anuncio}/renovar', \App\Http\Controllers\RenovarController::class);
 });
+
+Route::view('/esqueci', 'esqueci');
+Route::get('/nova-senha/{token}', [\App\Http\Controllers\RecuperarSenhaController::class, 'form']);
+Route::post('/nova-senha', [\App\Http\Controllers\RecuperarSenhaController::class, 'guardar']);

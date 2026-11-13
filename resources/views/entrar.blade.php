@@ -10,4 +10,5 @@
   <button class="btn">Entrar</button>
 </form>
 <p class="sm" style="text-align:center;margin-top:12px">Ainda não tem conta? <a href="/registo">Criar conta</a></p>
+<p class="sm" style="text-align:center"><a href="/esqueci">Esqueci a palavra-passe</a></p>
 @endsection
