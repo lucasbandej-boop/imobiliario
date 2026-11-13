@@ -6,6 +6,15 @@
 <meta name="theme-color" content="#0e7c66">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f2a900'/%3E%3Cpath d='M16 7 6 15h3v9h5v-6h4v6h5v-9h3z' fill='white'/%3E%3C/svg%3E">
 <title>@yield('titulo', 'CasaAngola - Casas e terrenos em Angola')</title>
+@hasSection('meta')
+@yield('meta')
+@else
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CasaAngola">
+<meta property="og:title" content="CasaAngola - Casas e terrenos em Angola">
+<meta property="og:description" content="Arrende ou venda a sua casa direto com o cliente, sem intermediários.">
+<meta name="description" content="Casas, apartamentos e terrenos para arrendar ou vender em Angola, direto com o dono.">
+@endif
 <style>
 :root{--cor:#0e7c66;--cor-escura:#0a5c4c;--destaque:#f2a900;--fundo:#f4f6f5;--texto:#1d2b27;--cinza:#6b7873}
 *{box-sizing:border-box}

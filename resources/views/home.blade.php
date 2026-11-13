@@ -33,12 +33,17 @@
     <option value="preco_asc" @selected(request('ordem')=='preco_asc')>Preço: mais barato</option>
     <option value="preco_desc" @selected(request('ordem')=='preco_desc')>Preço: mais caro</option>
   </select>
-  <input name="max" type="number" placeholder="Preço máximo" value="{{ request('max') }}">
+  <select name="moeda">
+    <option value="">Kz e USD</option>
+    <option value="AOA" @selected(request('moeda')=='AOA')>Só Kz</option>
+    <option value="USD" @selected(request('moeda')=='USD')>Só USD</option>
+  </select>
+  <input name="max" type="number" style="grid-column:1/-1" placeholder="Preço máximo (em Kz, ou na moeda escolhida)" value="{{ request('max') }}">
   <button class="btn">Pesquisar</button>
 </form>
 
 <h2 id="lista">Anúncios</h2>
-@if(request()->hasAny(['q','finalidade','tipo','provincia','ordem','max']))
+@if(request()->hasAny(['q','finalidade','tipo','provincia','ordem','moeda','max']))
   <p class="sm">{{ $anuncios->total() }} resultado(s) · <a href="/">Limpar filtros</a></p>
 @endif
 <div class="grid">
@@ -54,7 +59,7 @@
       @if($a->user && $a->user->verificado)<span class="tag" style="left:auto;right:10px;background:#fff;color:var(--cor)">✓ Verificado</span>@endif
     </div>
     <div class="info">
-      <div class="preco">{{ number_format($a->preco, 0, ',', '.') }} {{ $a->moeda }}</div>
+      <div class="preco">{{ $a->precoTexto() }}</div>
       <b>{{ $a->titulo }}</b>
       <div class="sm">{{ $a->bairro ? $a->bairro.', ' : '' }}{{ $a->provincia }}</div>
       <div class="sm">{{ ucfirst($a->tipo) }}{{ $a->quartos !== null ? ' · '.$a->quartos.($a->quartos == 1 ? ' quarto' : ' quartos') : '' }}</div>

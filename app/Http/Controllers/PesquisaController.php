@@ -9,12 +9,19 @@ class PesquisaController extends Controller
 {
     public function index(Request $r)
     {
-        $q = Anuncio::with('user:id,verificado')->where('estado', 'ativo')->where('expira_em', '>', now());
+        $q = Anuncio::with('user:id,verificado')
+            ->where('estado', 'ativo')
+            ->where('expira_em', '>', now());
 
         foreach (['finalidade', 'tipo', 'provincia'] as $c) {
             if ($r->filled($c)) {
                 $q->where($c, $r->input($c));
             }
+        }
+
+        $moeda = in_array($r->input('moeda'), ['AOA', 'USD'], true) ? $r->input('moeda') : null;
+        if ($moeda) {
+            $q->where('moeda', $moeda);
         }
 
         if ($r->filled('q')) {
@@ -28,12 +35,12 @@ class PesquisaController extends Controller
         }
 
         if ($r->filled('max') && is_numeric($r->input('max'))) {
-            $q->where('preco', '<=', $r->input('max'));
+            $q->where('moeda', $moeda ?? 'AOA')->where('preco', '<=', $r->input('max'));
         }
 
         match ($r->input('ordem')) {
-            'preco_asc' => $q->orderBy('preco'),
-            'preco_desc' => $q->orderByDesc('preco'),
+            'preco_asc' => $q->orderBy('moeda')->orderBy('preco'),
+            'preco_desc' => $q->orderBy('moeda')->orderByDesc('preco'),
             default => $q->latest(),
         };
 

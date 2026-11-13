@@ -1,5 +1,17 @@
 @extends('layout')
 @section('titulo', $anuncio->titulo)
+@section('meta')
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CasaAngola">
+<meta property="og:title" content="{{ $anuncio->titulo }} · {{ $anuncio->precoTexto() }}">
+<meta property="og:description" content="{{ ucfirst($anuncio->tipo) }} para {{ $anuncio->finalidade }} em {{ $anuncio->bairro ? $anuncio->bairro.', ' : '' }}{{ $anuncio->provincia }}. Publicado no CasaAngola.">
+<meta property="og:url" content="{{ url('/anuncio/'.$anuncio->id) }}">
+<meta name="description" content="{{ $anuncio->titulo }} · {{ $anuncio->precoTexto() }} · {{ $anuncio->provincia }}">
+@if($anuncio->fotos)
+<meta property="og:image" content="{{ \App\Support\Fotos::url($anuncio->fotos[0]) }}">
+<meta name="twitter:card" content="summary_large_image">
+@endif
+@endsection
 @section('conteudo')
 <style>
 .gal{position:relative}
@@ -35,7 +47,7 @@
 <h2>{{ $anuncio->titulo }}</h2>
 @if($anuncio->user && $anuncio->user->verificado)<p><span class="selo">✓ Proprietário verificado</span></p>@endif
 <p class="sm">Publicado em {{ $anuncio->publicadoTexto() }} · Válido até {{ $anuncio->validoAteTexto() }}</p>
-<div class="preco">{{ number_format($anuncio->preco, 0, ',', '.') }} {{ $anuncio->moeda }}</div>
+<div class="preco">{{ $anuncio->precoTexto() }}</div>
 <p class="sm">{{ ucfirst($anuncio->tipo) }} para {{ $anuncio->finalidade }} · {{ $anuncio->bairro ? $anuncio->bairro.', ' : '' }}{{ $anuncio->municipio ? $anuncio->municipio.', ' : '' }}{{ $anuncio->provincia }}</p>
 <p>{{ $anuncio->quartos !== null ? $anuncio->quartos.($anuncio->quartos == 1 ? ' quarto' : ' quartos') : '' }}{{ ($anuncio->quartos !== null && $anuncio->casas_banho !== null) ? ' · ' : '' }}{{ $anuncio->casas_banho !== null ? $anuncio->casas_banho.($anuncio->casas_banho == 1 ? ' casa de banho' : ' casas de banho') : '' }}</p>
 <p>{!! nl2br(e($anuncio->descricao)) !!}</p>

@@ -14,7 +14,8 @@
     <option value="apartamento">Apartamento</option>
     <option value="terreno">Terreno</option>
   </select>
-  <input name="preco" type="number" placeholder="Preço em Kwanzas" value="{{ old('preco') }}">
+  <input name="preco" type="number" placeholder="Preço" value="{{ old('preco') }}">
+  <select name="moeda"><option value="AOA">Kz (Kwanzas)</option><option value="USD" @selected(old("moeda")=="USD")>USD (dólares)</option></select>
   <input name="provincia" list="provs" placeholder="Província" value="{{ old('provincia') }}">
   <datalist id="provs">
     @foreach(['Luanda','Benguela','Huambo','Huíla','Cabinda','Bengo','Bié','Cuanza Norte','Cuanza Sul','Cunene','Lunda Norte','Lunda Sul','Malanje','Moxico','Namibe','Uíge','Zaire'] as $p)<option value="{{ $p }}">@endforeach

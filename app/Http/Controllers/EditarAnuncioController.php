@@ -23,6 +23,7 @@ class EditarAnuncioController extends Controller
             'tipo' => 'required|in:casa,apartamento,terreno',
             'finalidade' => 'required|in:arrendar,vender',
             'preco' => 'required|numeric|min:0',
+            'moeda' => 'nullable|in:AOA,USD',
             'provincia' => 'required|max:60',
             'municipio' => 'nullable|max:60',
             'bairro' => 'nullable|max:60',

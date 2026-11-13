@@ -49,4 +49,10 @@ class Anuncio extends Model
         $d = ($this->expira_em ?? $this->created_at->copy()->addDays(30))->copy()->setTimezone('Africa/Luanda');
         return $d->format('d/m/Y');
     }
+
+    public function precoTexto(): string
+    {
+        $n = number_format((float) $this->preco, 0, ',', '.');
+        return $n . ' ' . ($this->moeda === 'USD' ? 'USD' : 'Kz');
+    }
 }
