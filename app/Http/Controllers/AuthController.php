@@ -10,6 +10,7 @@ class AuthController extends Controller
 {
     public function registo(Request $r)
     {
+        $r->validate(["aceito" => "accepted"], ["aceito.accepted" => "Tem de aceitar os Termos de Uso e a Política de Privacidade."]);
         $d = $r->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|email|unique:users',

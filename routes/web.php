@@ -36,3 +36,6 @@ Route::middleware('auth')->group(function () {
 Route::view('/esqueci', 'esqueci');
 Route::get('/nova-senha/{token}', [\App\Http\Controllers\RecuperarSenhaController::class, 'form']);
 Route::post('/nova-senha', [\App\Http\Controllers\RecuperarSenhaController::class, 'guardar']);
+
+Route::view('/termos', 'termos');
+Route::view('/privacidade', 'privacidade');
