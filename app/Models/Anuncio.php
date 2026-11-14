@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Anuncio extends Model
 {
@@ -12,6 +13,8 @@ class Anuncio extends Model
         'fotos' => 'array',
         'expira_em' => 'datetime',
     ];
+
+    protected ?array $statsCache = null;
 
     protected static function booted(): void
     {
@@ -54,5 +57,17 @@ class Anuncio extends Model
     {
         $n = number_format((float) $this->preco, 0, ',', '.');
         return $n . ' ' . ($this->moeda === 'USD' ? 'USD' : 'Kz');
+    }
+
+    public function resumoStats(): array
+    {
+        if ($this->statsCache === null) {
+            $t = DB::table('anuncio_estatisticas')
+                ->where('anuncio_id', $this->id)
+                ->selectRaw('coalesce(sum(visitas),0) as v, coalesce(sum(contactos),0) as c')
+                ->first();
+            $this->statsCache = ['visitas' => (int) $t->v, 'contactos' => (int) $t->c];
+        }
+        return $this->statsCache;
     }
 }

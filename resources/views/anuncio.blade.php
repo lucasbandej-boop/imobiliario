@@ -62,7 +62,7 @@
   };
 @endphp
 @if($disponivel)
-<a class="btn" style="display:block;text-align:center;text-decoration:none" href="https://wa.me/{{ $anuncio->whatsapp }}?text={{ urlencode('Olá, vi o anúncio "'.$anuncio->titulo.'" no CasaAngola e tenho interesse.') }}">Contactar via WhatsApp</a>
+<a class="btn" style="display:block;text-align:center;text-decoration:none" href="/anuncio/{{ $anuncio->id }}/whatsapp" rel="nofollow">Contactar via WhatsApp</a>
 @else
 <p class="erro"><b>{{ $aviso }}</b></p>
 @endif

@@ -4,7 +4,6 @@ use App\Http\Controllers\AnuncioController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/anuncio/{anuncio}', [AnuncioController::class, 'show']);
 
 Route::middleware('guest')->group(function () {
     Route::view('/registo', 'registo');
@@ -51,3 +50,7 @@ Route::middleware(['auth', \App\Http\Middleware\SoAdmin::class])->prefix('admin'
     Route::post('/utilizadores/{id}/bloquear', [$c, 'bloquear']);
     Route::post('/utilizadores/{id}/senha', [$c, 'linkSenha']);
 });
+
+Route::get('/anuncio/{anuncio}', [\App\Http\Controllers\AnuncioController::class, 'show'])->middleware(\App\Http\Middleware\ContarVisita::class);
+Route::get('/anuncio/{anuncio}/whatsapp', \App\Http\Controllers\ContactarController::class);
+Route::get('/anuncios/{anuncio}/estatisticas', \App\Http\Controllers\EstatisticaController::class)->middleware('auth');

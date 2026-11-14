@@ -9,6 +9,7 @@
     <a href="/anuncio/{{ $a->id }}"><b>{{ $a->titulo }}</b></a>
     <div class="sm">{{ ucfirst($a->tipo) }} para {{ $a->finalidade }} · Estado: {{ $a->estado }}</div>
     <div class="sm">Publicado em {{ $a->publicadoTexto() }} · {{ $a->expirado ? "Expirou em" : "Válido até" }} {{ $a->validoAteTexto() }}</div>
+    <div class="sm">{{ $a->resumoStats()["visitas"] }} visitas · {{ $a->resumoStats()["contactos"] }} toques no WhatsApp · <a href="/anuncios/{{ $a->id }}/estatisticas">Ver estatísticas</a></div>
     <div style="margin-top:8px">
       <form class="inline" method="POST" action="/anuncios/{{ $a->id }}/renovar">@csrf<button class="mini">Renovar 30 dias</button></form>
       <a class="mini" href="/anuncios/{{ $a->id }}/editar" style="text-decoration:none;color:inherit;display:inline-block">Editar</a>

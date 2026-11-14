@@ -15,6 +15,7 @@
 <li><b>Conta:</b> nome, email e palavra-passe (guardada de forma cifrada).</li>
 <li><b>Anúncios:</b> título, descrição, preço, localização, número de WhatsApp, fotos e as datas de publicação.</li>
 <li><b>Dados técnicos:</b> registos do servidor, como endereço IP, tipo de aparelho e páginas visitadas, mantidos pelo serviço de alojamento.</li>
+<li><b>Estatísticas dos anúncios:</b> contamos, sem o identificar, quantas vezes cada anúncio é visto e quantas pessoas tocam no botão de WhatsApp. O dono do anúncio vê apenas estes totais.</li>
 <li><b>Verificação:</b> para o selo de verificado podemos contactá-lo por WhatsApp. Não guardamos cópias de documentos de identificação.</li>
 </ul>
 
