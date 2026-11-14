@@ -54,3 +54,5 @@ Route::middleware(['auth', \App\Http\Middleware\SoAdmin::class])->prefix('admin'
 Route::get('/anuncio/{anuncio}', [\App\Http\Controllers\AnuncioController::class, 'show'])->middleware(\App\Http\Middleware\ContarVisita::class);
 Route::get('/anuncio/{anuncio}/whatsapp', \App\Http\Controllers\ContactarController::class);
 Route::get('/anuncios/{anuncio}/estatisticas', \App\Http\Controllers\EstatisticaController::class)->middleware('auth');
+
+Route::view('/como-funciona', 'como-funciona');

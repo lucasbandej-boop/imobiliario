@@ -6,6 +6,7 @@
   <div class="hero-btns">
     <a class="btn btn-amarelo" href="/anuncios/novo">Publicar anúncio</a>
     <a class="btn btn-claro" href="#lista">Procurar</a>
+    <a class="btn btn-claro" href="/como-funciona">Como funciona</a>
   </div>
 </section>
 

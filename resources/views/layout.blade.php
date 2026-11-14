@@ -71,6 +71,6 @@ footer{text-align:center;color:var(--cinza);font-size:.85rem;padding:24px 16px}
   @endauth
 </nav>
 <main>@yield('conteudo')</main>
-<footer>CasaAngola · Proprietários e clientes, sem intermediários · Angola<br><a href="/termos">Termos de Uso</a> · <a href="/privacidade">Política de Privacidade</a></footer>
+<footer>CasaAngola · Proprietários e clientes, sem intermediários · Angola<br><a href="/como-funciona">Como funciona</a> · <a href="/termos">Termos de Uso</a> · <a href="/privacidade">Política de Privacidade</a></footer>
 </body>
 </html>
