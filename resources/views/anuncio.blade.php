@@ -25,7 +25,7 @@
 .selo{display:inline-block;background:#e3f4ee;color:var(--cor-escura);font-size:.8rem;font-weight:700;padding:4px 10px;border-radius:20px}
 </style>
 
-@php($fotos = $anuncio->fotos ?? [])
+@php $fotos = $anuncio->fotos ?? []; @endphp
 @if(count($fotos))
 <div class="gal">
   <div class="gal-trilho" id="trilho">
